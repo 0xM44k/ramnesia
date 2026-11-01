@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.venv/
+venv/
+# local forensic artifacts — never commit dumps or reports
+*.bin
+*.raw
+*.lime
+*.vmem
+*.dmp
+sample_dump.bin
+*.report.json
+report*.html
+convos*.html

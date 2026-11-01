@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ramnesia"
+version = "0.4.0"
+description = "Carve AI/agent artifacts (prompts, API keys, MCP tool-calls) out of memory dumps."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Maak" }]
+keywords = ["forensics", "dfir", "memory-forensics", "llm", "ai-security", "mcp", "volatility"]
+dependencies = []   # core engine is stdlib-only
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Security",
+]
+
+[project.urls]
+Homepage = "https://github.com/0xM44k/ramnesia"
+Issues = "https://github.com/0xM44k/ramnesia/issues"
+
+[project.optional-dependencies]
+volatility = ["volatility3>=2.5"]
+dev = ["pytest>=7"]
+
+[project.scripts]
+ramnesia = "ramnesia.cli:main"
+
+[tool.setuptools]
+packages = ["ramnesia", "ramnesia.volatility"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
