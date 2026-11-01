@@ -15,6 +15,7 @@ Severity: high | medium | info
 """
 from __future__ import annotations
 
+import hashlib
 import re
 from dataclasses import dataclass, field
 from typing import Callable, List, Optional, Pattern
@@ -125,7 +126,12 @@ _PROMPTS: List[Detector] = [
     ),
     Detector(
         "system_prompt_opener", "prompt", "info",
-        re.compile(rb"You are (?:a |an |the )?[A-Z][A-Za-z ]{3,40}"),
+        # Either an article plus any wording ("You are a helpful assistant") or a
+        # capitalised name/role ("You are Claude"). The earlier pattern demanded a
+        # capital letter right after the article, which missed the usual lower-case
+        # phrasing. Measured on 231 MB of mixed text it found 35 hits against 10,
+        # of which about 5 were licence or package-manager prose, not prompts.
+        re.compile(rb"You are (?:(?:a|an|the) [A-Za-z][A-Za-z ,'\-]{3,60}|[A-Z][A-Za-z ]{3,40})"),
         "Likely system-prompt opener ('You are ...')",
     ),
 ]
@@ -218,6 +224,28 @@ _MODEL: List[Detector] = [
 ALL_DETECTORS: List[Detector] = _SECRETS + _PROMPTS + _MCP + _AGENT + _MODEL
 
 CATEGORIES = ("secret", "prompt", "mcp", "agent", "model")
+
+
+def detector_set_info() -> dict:
+    """Identify the detector set so findings can be reproduced and compared.
+
+    The fingerprint is a SHA-256 over every detector's name, category, severity
+    and regular expression, in order. It changes whenever any of those change,
+    so two reports with the same fingerprint were produced by the same patterns.
+    It does not cover the redaction functions or the scanner itself.
+    """
+    return {"count": len(ALL_DETECTORS), "fingerprint": detector_fingerprint()}
+
+
+def pattern_digest(d: Detector) -> str:
+    return hashlib.sha256(d.pattern.pattern).hexdigest()
+
+
+def detector_fingerprint() -> str:
+    h = hashlib.sha256()
+    for d in ALL_DETECTORS:
+        h.update(b"\x1f".join([d.name.encode(), d.category.encode(), d.severity.encode(), d.pattern.pattern]) + b"\x1e")
+    return h.hexdigest()[:16]
 
 
 def detectors_for(categories: Optional[List[str]] = None) -> List[Detector]:

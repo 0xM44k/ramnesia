@@ -3,6 +3,27 @@
 All notable changes to RAMnesia are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/); versions follow SemVer.
 
+## [0.5.0] - 2026-11-01
+### Added
+- **Detector governance.** Every detector now needs a positive and a negative
+  fixture (`tests/detector_cases.py`), exercised through the real scanner. The
+  detector set is locked in `tests/detectors.lock.json`; changing a pattern,
+  severity or category, or adding or removing a detector, fails the suite until
+  the lock is regenerated (`python tools/detector_lock.py --write`) and the new
+  fingerprint is recorded in this file. The newest version here must equal the
+  package version.
+- A set fingerprint (SHA-256 over every detector's name, category, severity and
+  pattern) in `ramnesia detectors`, the console report and the JSON report
+  (`detector_set`, `version`), so a report names the patterns that produced it.
+### Changed
+- `system_prompt_opener` now matches an article followed by any wording
+  ("You are a helpful assistant"); the old pattern needed a capital letter right
+  after the article and missed the usual phrasing. On 231 MB of mixed text it
+  gave 35 hits against 10, about 5 of them licence or package-manager prose.
+  Severity stays `info`.
+
+Detector set `6828740618885117` (26 detectors). Previous set `4d04c4e265ff92b7`.
+
 ## [0.4.0] - 2026-10-24
 ### Added
 - **Timeline reconstruction** (`ramnesia timeline`): splits recovered blocks into

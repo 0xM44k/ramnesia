@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ramnesia"
-version = "0.4.0"
+version = "0.5.0"
 description = "Carve AI/agent artifacts (prompts, API keys, MCP tool-calls) out of memory dumps."
 readme = "README.md"
 requires-python = ">=3.10"

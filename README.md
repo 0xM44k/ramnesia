@@ -127,6 +127,16 @@ vol -p ./ramnesia/volatility windows.ai_artifacts.AiArtifacts --categories secre
 
 (Run on a Linux/DFIR host with `volatility3` installed and a real image.)
 
+## Detector governance
+
+Detection changes are never silent:
+
+- Every detector needs at least one **positive** and one **negative** fixture in `tests/detector_cases.py`, run through the real scanner. Adding a detector without them fails the suite.
+- The detector set has a **fingerprint** (SHA-256 over each detector's name, category, severity and pattern), shown by `ramnesia detectors`, the console report and the JSON report (`detector_set`), so a report names the patterns that produced it. It does not cover redaction or scanner code.
+- The set is **locked** in `tests/detectors.lock.json`. Changing a pattern, severity or category, or adding or removing a detector, fails the tests until you run `python tools/detector_lock.py --write` **and** record the new fingerprint in `CHANGELOG.md`. The newest changelog version must equal the package version.
+
+The fixtures are small, hand-written cases. They catch regressions and over-broad patterns; they do not measure false-positive rates on real memory (see the roadmap). Secret-shaped fixture strings are assembled from fragments so no token-like literal sits in the repository.
+
 ## Layout
 
 ```
@@ -138,6 +148,8 @@ ramnesia/
   volatility/ai_artifacts.py   Volatility 3 plugin
 samples/make_sample.py   synthetic dump generator
 tests/test_scanner.py    pytest suite
+tests/test_governance.py detector fixtures, lock and changelog checks
+tools/detector_lock.py   write or check the detector lock
 ```
 
 ## Roadmap
@@ -145,7 +157,7 @@ tests/test_scanner.py    pytest suite
 Not done yet, in rough order of value:
 
 - Evaluate on a genuine memory image (capture tool, format, process coverage and misses recorded); evidence so far is synthetic dumps only.
-- Detector governance: version the detector set and add a positive and negative fixture per detector; record pattern changes in the CHANGELOG.
+- Measure each detector's false-positive rate on a clean dump from a real image (the governance fixtures are small hand-written cases, not a corpus).
 - Extend the short-pattern context rule applied to o-series model names in 0.4.x to other short patterns, with a stated false-positive count on a clean dump.
 - The timeline reconstruction and HTML report listed here in earlier drafts are implemented; KV-cache tensor recovery is not claimed and is not on this list.
 

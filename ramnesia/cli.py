@@ -11,7 +11,7 @@ import argparse
 import sys
 
 from . import __version__
-from .patterns import ALL_DETECTORS, CATEGORIES
+from .patterns import ALL_DETECTORS, CATEGORIES, detector_set_info
 from .report import to_console, to_json
 from .report_html import html_report
 from .recover import recover_file
@@ -183,6 +183,8 @@ def cmd_llama(args: argparse.Namespace) -> int:
 def cmd_detectors(_args: argparse.Namespace) -> int:
     for d in ALL_DETECTORS:
         print(f"{d.category:7} {d.severity:6} {d.name:22} {d.description}")
+    info = detector_set_info()
+    print(f"\n{info['count']} detectors, set fingerprint {info['fingerprint']}")
     return 0
 
 

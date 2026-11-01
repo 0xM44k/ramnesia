@@ -1,0 +1,135 @@
+{
+  "detectors": {
+    "agent_framework": {
+      "category": "agent",
+      "pattern_sha256": "64ac3a4d375038866ad2e1912ec5313723fa9fe7a4a5e580485b5ff37dd4d800",
+      "severity": "info"
+    },
+    "anthropic_api_key": {
+      "category": "secret",
+      "pattern_sha256": "c1b63dab246f44c7bb2c80d62bd2a18fe39c7f99da34855928117c41bb5eae48",
+      "severity": "high"
+    },
+    "aws_access_key_id": {
+      "category": "secret",
+      "pattern_sha256": "764b78da623b9d7bff422a0577cbe3bf3a99ee183cccc777832830edbddb41b1",
+      "severity": "high"
+    },
+    "bearer_token": {
+      "category": "secret",
+      "pattern_sha256": "a147baa1b927a92d6e4a6e9845509de9a5633f6bb09daac580205271bac39ef2",
+      "severity": "high"
+    },
+    "chat_role_json": {
+      "category": "prompt",
+      "pattern_sha256": "f21e5709f6c8ef62b3359d8a92c11ce492456c197ecb7e67f077c8d687d9f62f",
+      "severity": "medium"
+    },
+    "chat_template_marker": {
+      "category": "prompt",
+      "pattern_sha256": "1d0c1622241ba9e91bd1b20fd3ee56cea03d1a85fc40ca444af3d0c8321c3779",
+      "severity": "medium"
+    },
+    "conversation_turn": {
+      "category": "agent",
+      "pattern_sha256": "bd738b606b2163f4256c31ded90db41d5aa6f27d8544fc23d01729bd09b8429b",
+      "severity": "info"
+    },
+    "gcp_service_account": {
+      "category": "secret",
+      "pattern_sha256": "3d5c3bfe4da3c1371edbb67e716e7f1f8f3283c367316c59eb0ab09b0cb1f936",
+      "severity": "high"
+    },
+    "gguf_magic": {
+      "category": "model",
+      "pattern_sha256": "b83633aa785344791618f2fddf131b010ea04912a60430760b070bad293f65bd",
+      "severity": "info"
+    },
+    "gguf_metadata": {
+      "category": "model",
+      "pattern_sha256": "3a3b034201e78c0141952dad47b6c9764cf0bc1ebfa8e2a3069450c7c093faf9",
+      "severity": "info"
+    },
+    "github_token": {
+      "category": "secret",
+      "pattern_sha256": "256aee8e2c98e7888a7ca5b6d58305ba830fa0d53b12d4c22bd706beddf903a2",
+      "severity": "high"
+    },
+    "google_api_key": {
+      "category": "secret",
+      "pattern_sha256": "89a82cf233fc5aec59a690d9771761f883a9c87046234aa4b37cb1f145093459",
+      "severity": "high"
+    },
+    "huggingface_token": {
+      "category": "secret",
+      "pattern_sha256": "f406c16ac360d952bc6b17193f7831a88cf0e1ce90b6be3c38ddfe61037376f9",
+      "severity": "high"
+    },
+    "jsonrpc_envelope": {
+      "category": "mcp",
+      "pattern_sha256": "66842f774b491102d7cda41c1cc3969bceede034891c6d1904b90686bc210acb",
+      "severity": "info"
+    },
+    "jwt": {
+      "category": "secret",
+      "pattern_sha256": "f7da9cf23e07a6222b2dddb80c76d939f4a6402d28a2a3741b8f6e9adbe6d917",
+      "severity": "high"
+    },
+    "llm_env_key": {
+      "category": "secret",
+      "pattern_sha256": "fabd45337527998f4f8080b358221b08b4d588921d44563f250f062bc4e2204e",
+      "severity": "high"
+    },
+    "local_runtime": {
+      "category": "model",
+      "pattern_sha256": "4c0964aaafd18f006e91a062575ec5448911ef4e15abd0acf59919ab8cda5720",
+      "severity": "info"
+    },
+    "mcp_method": {
+      "category": "mcp",
+      "pattern_sha256": "21ca1aaf0484c13c87e60e081ad620261e701541ec6cc5851c516df996c531e8",
+      "severity": "medium"
+    },
+    "mcp_tool_name": {
+      "category": "mcp",
+      "pattern_sha256": "de3b127a695e1b0ed473bfcd8317312159289cb281776ab5603fe7f391ff93fa",
+      "severity": "info"
+    },
+    "model_name": {
+      "category": "model",
+      "pattern_sha256": "91e23ac585582486bca1daaf1031c299a975f889fb69d255b52ab711685caa25",
+      "severity": "info"
+    },
+    "openai_api_key": {
+      "category": "secret",
+      "pattern_sha256": "564d4d80dbb4d8fa23418ff55a49b7e4c9ad4b6209d2b3bcc5f490062c898ae5",
+      "severity": "high"
+    },
+    "private_key_pem": {
+      "category": "secret",
+      "pattern_sha256": "fa4710b6bc5015b7e447fbe968c3fb36df1c3a7ed2797b297625c47bbd9d4866",
+      "severity": "high"
+    },
+    "provider_endpoint": {
+      "category": "model",
+      "pattern_sha256": "3106a21185586b78a54aa5e8754bc074305a92326dce31194151d869a8b0f546",
+      "severity": "info"
+    },
+    "react_trace": {
+      "category": "agent",
+      "pattern_sha256": "2058e45cfaed7b69fc84445f61d43322f03a8a4fe8f5476c102c51fc761e58a2",
+      "severity": "medium"
+    },
+    "slack_token": {
+      "category": "secret",
+      "pattern_sha256": "294e6f683945b461c3db8d37f29bc07cb36f48f663abaa322d2fef07e876eb94",
+      "severity": "high"
+    },
+    "system_prompt_opener": {
+      "category": "prompt",
+      "pattern_sha256": "54fd4c50a4c9d4efa34ac870cfec1af541e202e9f9c4200cbbc0455f986751a2",
+      "severity": "info"
+    }
+  },
+  "fingerprint": "6828740618885117"
+}

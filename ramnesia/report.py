@@ -4,6 +4,8 @@ from __future__ import annotations
 import json
 from typing import Dict, List
 
+from . import __version__
+from .patterns import detector_set_info
 from .scanner import Finding, summarize
 
 _SEV_COLOR = {"high": "\033[91m", "medium": "\033[93m", "info": "\033[90m"}
@@ -15,6 +17,8 @@ _ACCENT = "\033[96m"
 def to_json(findings: List[Finding], source: str) -> str:
     payload = {
         "tool": "RAMnesia",
+        "version": __version__,
+        "detector_set": detector_set_info(),
         "source": source,
         "summary": summarize(findings),
         "findings": [f.to_dict() for f in findings],
@@ -29,6 +33,8 @@ def to_console(findings: List[Finding], source: str, color: bool = True) -> str:
     lines: List[str] = []
     lines.append(c(_ACCENT + _BOLD, "RAMnesia") + c(_BOLD, f"  —  AI/agent memory forensics"))
     lines.append(f"source: {source}")
+    info = detector_set_info()
+    lines.append(f"detector set: {info['count']} detectors, fingerprint {info['fingerprint']}")
     summ = summarize(findings)
     lines.append("")
     lines.append(c(_BOLD, f"{len(findings)} findings") + "   " +
